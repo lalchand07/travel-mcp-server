@@ -42,6 +42,7 @@ const EnvSchema = z.object({
   MCP_HTTP_PORT: int(3000, 1, 65535),
   MCP_HTTP_TOKEN: z.string().optional(),
   MCP_HTTP_ALLOWED_HOSTS: z.string().optional(),
+  MCP_HTTP_ALLOW_PATH_TOKEN: bool,
   LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error', 'silent']).optional(),
   ENABLE_FILE_CACHE: bool,
 });
@@ -54,7 +55,14 @@ export interface Config {
   ttl: { pricesMs: number; statusMs: number; fxMs: number };
   requestTimeoutMs: number;
   transport: 'stdio' | 'http';
-  http: { host: string; port: number; token: string | undefined; allowedHosts: string[] | undefined };
+  http: {
+    host: string;
+    port: number;
+    token: string | undefined;
+    allowedHosts: string[] | undefined;
+    /** Also accept the token as a secret URL path (/mcp/<token>) for clients that cannot send headers. */
+    allowPathToken: boolean;
+  };
   logLevel: LogLevel;
 }
 
@@ -75,7 +83,9 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env, flags: CliFlags
   }
   const e = parsed.data;
   const transport = flags.http ? 'http' : flags.stdio ? 'stdio' : (e.MCP_TRANSPORT ?? 'stdio');
-  const cacheFile = e.CACHE_FILE || (e.ENABLE_FILE_CACHE ? join(homedir(), '.cache', 'mcp-server-travel', 'cache.json') : undefined);
+  const cacheFile =
+    e.CACHE_FILE ||
+    (e.ENABLE_FILE_CACHE ? join(homedir(), '.cache', 'mcp-server-travel', 'cache.json') : undefined);
 
   return {
     flightApiKey: e.FLIGHTAPI_KEY || undefined,
@@ -96,6 +106,7 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env, flags: CliFlags
       allowedHosts: e.MCP_HTTP_ALLOWED_HOSTS?.split(',')
         .map((h) => h.trim())
         .filter(Boolean),
+      allowPathToken: e.MCP_HTTP_ALLOW_PATH_TOKEN ?? false,
     },
     logLevel: e.LOG_LEVEL ?? 'info',
   };

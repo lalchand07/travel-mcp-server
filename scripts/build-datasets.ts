@@ -30,7 +30,7 @@ export function parseCsv(text: string): string[][] {
   let field = '';
   let inQuotes = false;
   for (let i = 0; i < text.length; i++) {
-    const c = text[i];
+    const c = text.charAt(i);
     if (inQuotes) {
       if (c === '"') {
         if (text[i + 1] === '"') {
@@ -84,13 +84,29 @@ async function load(name: keyof typeof SOURCES, fromDir: string | undefined): Pr
 }
 
 const AIRPORT_TYPES = new Set(['large_airport', 'medium_airport', 'small_airport']);
-const TYPE_CODE: Record<string, 'L' | 'M' | 'S'> = { large_airport: 'L', medium_airport: 'M', small_airport: 'S' };
+const TYPE_CODE: Record<string, 'L' | 'M' | 'S'> = {
+  large_airport: 'L',
+  medium_airport: 'M',
+  small_airport: 'S',
+};
 
 /**
- * Compact airport row: [iata, icao, name, city, countryCode, lat, lon, size, keywords]
- * size: L(arge) | M(edium) | S(mall); keywords: OurAirports search keywords (alternate names).
+ * Compact airport row: [iata, icao, name, city, countryCode, lat, lon, size, keywords, scheduled]
+ * size: L(arge) | M(edium) | S(mall); keywords: OurAirports search keywords (alternate names);
+ * scheduled: 1 if OurAirports marks the airport as having scheduled airline service.
  */
-export type AirportRow = [string, string, string, string, string, number, number, 'L' | 'M' | 'S', string];
+export type AirportRow = [
+  string,
+  string,
+  string,
+  string,
+  string,
+  number,
+  number,
+  'L' | 'M' | 'S',
+  string,
+  0 | 1,
+];
 
 function cleanKeywords(raw: string, iata: string): string {
   const parts = raw
@@ -122,6 +138,7 @@ export function buildAirports(airportsCsv: string): AirportRow[] {
       Math.round(Number(a.longitude_deg) * 1e4) / 1e4,
       TYPE_CODE[type]!,
       cleanKeywords(a.keywords ?? '', iata),
+      a.scheduled_service === 'yes' ? 1 : 0,
     ]);
   }
   return out.sort((x, y) => x[0].localeCompare(y[0]));
@@ -170,7 +187,7 @@ async function main() {
     JSON.stringify({
       source: 'OurAirports (https://ourairports.com/data/), public domain',
       generatedAt,
-      fields: ['iata', 'icao', 'name', 'city', 'country', 'lat', 'lon', 'size', 'keywords'],
+      fields: ['iata', 'icao', 'name', 'city', 'country', 'lat', 'lon', 'size', 'keywords', 'scheduled'],
       countries,
       airports,
     }) + '\n',

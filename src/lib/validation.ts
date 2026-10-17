@@ -4,7 +4,10 @@ import { z } from 'zod';
 export const iataAirport = z
   .string()
   .trim()
-  .regex(/^[A-Za-z]{3}$/, 'Must be a 3-letter IATA airport code, e.g. LHE or LHR. Use search_airports to find it.')
+  .regex(
+    /^[A-Za-z]{3}$/,
+    'Must be a 3-letter IATA airport code, e.g. LHE or LHR. Use search_airports to find it.',
+  )
   .transform((s) => s.toUpperCase());
 
 /** ISO 4217 currency code. */
@@ -32,7 +35,10 @@ export const flightNumber = z
   )
   .transform((s) => ({ airline: s.slice(0, 2), number: s.slice(2), full: s }));
 
-const isoDate = z.string().trim().regex(/^\d{4}-\d{2}-\d{2}$/, 'Must be a date in YYYY-MM-DD format.');
+const isoDate = z
+  .string()
+  .trim()
+  .regex(/^\d{4}-\d{2}-\d{2}$/, 'Must be a date in YYYY-MM-DD format.');
 
 function parseIsoDate(s: string): Date | undefined {
   const d = new Date(`${s}T00:00:00Z`);
@@ -61,9 +67,13 @@ export function futureDate(opts: { maxDaysAhead?: number; now?: () => Date } = {
       return;
     }
     const diff = daysBetween(todayUtc(now()), s);
-    if (diff < -1) ctx.addIssue({ code: 'custom', message: `${s} is in the past. Use today or a future date.` });
+    if (diff < -1)
+      ctx.addIssue({ code: 'custom', message: `${s} is in the past. Use today or a future date.` });
     if (diff > maxDaysAhead)
-      ctx.addIssue({ code: 'custom', message: `${s} is more than ${maxDaysAhead} days ahead; fares are not published yet.` });
+      ctx.addIssue({
+        code: 'custom',
+        message: `${s} is more than ${maxDaysAhead} days ahead; fares are not published yet.`,
+      });
   });
 }
 

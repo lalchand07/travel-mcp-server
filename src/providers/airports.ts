@@ -12,7 +12,7 @@ export interface Airport {
   size: 'large' | 'medium' | 'small';
 }
 
-type Row = [string, string, string, string, string, number, number, 'L' | 'M' | 'S', string];
+type Row = [string, string, string, string, string, number, number, 'L' | 'M' | 'S', string, 0 | 1];
 
 interface Dataset {
   generatedAt: string;
@@ -25,10 +25,30 @@ interface Indexed extends Airport {
   nName: string;
   nKeywords: string;
   nCountry: string;
+  scheduled: boolean;
 }
 
 const SIZE = { L: 'large', M: 'medium', S: 'small' } as const;
 const SIZE_BONUS = { large: 10, medium: 5, small: 0 } as const;
+
+/**
+ * Major passenger airports, roughly busiest first. Only used to break ties between airports
+ * serving the same city (e.g. LHR before LGW, CDG before ORY), so "London" returns Heathrow first.
+ */
+const MAJOR_HUBS = (
+  'ATL DXB DFW LHR HND DEN IST LAX ORD DEL CDG JFK CAN AMS PVG FRA MAD SIN ICN BOM PEK SFO SEA LAS MIA CLT ' +
+  'PHX MCO EWR BKK KUL DOH JED RUH HKG SYD MEL YYZ MEX GRU FCO BCN MUC ZRH VIE CPH ARN OSL HEL DUB LIS ' +
+  'MAN LGW SAW AUH KHI LHE ISB CAI JNB ADD NBO LOS CMN BLR HYD MAA CCU CGK MNL TPE NRT KIX SZX CTU BOS ' +
+  'IAH MSP DTW PHL YVR GIG BOG LIM SCL EZE ORY MXP BRU ATH WAW PRG BUD DUS HAM TXL BER EDI BHX GLA MED DMM ' +
+  'SHJ MCT BAH KWI AMM BEY TLV TAS ALA DAC CMB KTM HAN SGN PNH RGN AKL BNE PER YUL YYC IAD DCA ORD LGA STN LTN'
+)
+  .split(' ')
+  .reduce<Map<string, number>>((m, code, i) => (m.has(code) ? m : m.set(code, i)), new Map());
+
+function rankBonus(a: Indexed): number {
+  const hub = MAJOR_HUBS.get(a.iata);
+  return SIZE_BONUS[a.size] + (a.scheduled ? 20 : 0) + (hub === undefined ? 0 : 30 - hub / 10);
+}
 
 /**
  * Hand-curated aliases for places people commonly ask about that have no airport
@@ -67,7 +87,7 @@ export class AirportDirectory {
 
   constructor(dataset: Dataset) {
     this.generatedAt = dataset.generatedAt;
-    this.list = dataset.airports.map(([iata, icao, name, city, cc, lat, lon, size, keywords]) => {
+    this.list = dataset.airports.map(([iata, icao, name, city, cc, lat, lon, size, keywords, scheduled]) => {
       const country = dataset.countries[cc] ?? cc;
       const a: Indexed = {
         iata,
@@ -79,10 +99,11 @@ export class AirportDirectory {
         lat,
         lon,
         size: SIZE[size],
-        nCity: normalize(city),
+        nCity: normalize(city.replace(/\(.*\)/g, '')),
         nName: normalize(name),
         nKeywords: normalize(keywords),
         nCountry: normalize(country),
+        scheduled: scheduled === 1,
       };
       this.byIata.set(iata, a);
       return a;
@@ -114,7 +135,7 @@ export class AirportDirectory {
     const upper = query.trim().toUpperCase();
     const scored = new Map<string, AirportSearchResult>();
     const add = (a: Indexed, score: number, matchedBy: AirportSearchResult['matchedBy']) => {
-      const total = score + SIZE_BONUS[a.size];
+      const total = score + rankBonus(a);
       const prev = scored.get(a.iata);
       if (!prev || prev.score < total) scored.set(a.iata, { airport: strip(a), score: total, matchedBy });
     };

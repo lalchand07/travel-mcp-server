@@ -10,11 +10,16 @@ export default tseslint.config(
   {
     languageOptions: {
       globals: globals.node,
-      parserOptions: { projectService: { allowDefaultProject: ['*.js', 'scripts/*.mjs'] }, tsconfigRootDir: import.meta.dirname },
+      parserOptions: {
+        projectService: { allowDefaultProject: ['*.js', 'scripts/*.mjs'] },
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
     rules: {
       '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
       'no-console': ['error', { allow: ['error'] }],
+      // Typed cache getters (get<T>) are clearer than casting at every call site.
+      '@typescript-eslint/no-unnecessary-type-parameters': 'off',
     },
   },
   {

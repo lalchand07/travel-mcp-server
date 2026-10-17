@@ -22,12 +22,12 @@ export class RateLimiter {
   }
 
   private prune(now: number): void {
-    while (this.stamps.length > 0 && this.stamps[0]! <= now - DAY) this.stamps.shift();
+    while (this.stamps.length > 0 && (this.stamps[0] ?? Infinity) <= now - DAY) this.stamps.shift();
   }
 
   private countSince(since: number): number {
     let n = 0;
-    for (let i = this.stamps.length - 1; i >= 0 && this.stamps[i]! > since; i--) n++;
+    for (let i = this.stamps.length - 1; i >= 0 && (this.stamps[i] ?? 0) > since; i--) n++;
     return n;
   }
 
@@ -38,7 +38,7 @@ export class RateLimiter {
     const { perMinute, perDay } = this.opts;
 
     if (perDay > 0 && this.stamps.length >= perDay) {
-      const retryIn = Math.ceil((this.stamps[0]! + DAY - now) / 60_000);
+      const retryIn = Math.ceil(((this.stamps[0] ?? now) + DAY - now) / 60_000);
       throw new ToolError(
         'RATE_LIMITED',
         `Daily safety limit reached: ${perDay} ${provider} requests in the last 24 hours. This protects your API credits.`,
@@ -46,7 +46,7 @@ export class RateLimiter {
       );
     }
     if (perMinute > 0 && this.countSince(now - MINUTE) >= perMinute) {
-      const firstInWindow = this.stamps[this.stamps.length - perMinute]!;
+      const firstInWindow = this.stamps[this.stamps.length - perMinute] ?? now;
       const retrySec = Math.max(1, Math.ceil((firstInWindow + MINUTE - now) / 1000));
       throw new ToolError(
         'RATE_LIMITED',

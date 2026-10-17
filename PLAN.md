@@ -53,14 +53,14 @@ test/
 
 ## Tools
 
-| Tool | Input | Notes |
-| --- | --- | --- |
-| `search_airports` | `query` (string, 2–64 chars), `limit?` (1–20, default 8) | Offline. Matches IATA exactly first, then ICAO, then city, then name. Never uses credits. |
+| Tool                   | Input                                                                                                                                                                                                                                                                                                              | Notes                                                                                                                                    |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `search_airports`      | `query` (string, 2–64 chars), `limit?` (1–20, default 8)                                                                                                                                                                                                                                                           | Offline. Matches IATA exactly first, then ICAO, then city, then name. Never uses credits.                                                |
 | `search_flight_prices` | `origin`, `destination` (IATA, 3 letters), `departure_date` (YYYY-MM-DD, today or later), `return_date?` (>= departure), `adults` (1–9, default 1), `children?` (0–8), `infants?` (0–adults), `cabin_class?` (economy\|premium_economy\|business\|first), `currency?` (ISO 4217), `max_results?` (1–20, default 5) | One-way when `return_date` is absent. Returns the cheapest options sorted by price, plus an "indicative prices" note. Cached for 30 min. |
-| `get_flight_status` | `flight_number` (e.g. `EK623`, `PK 757`), `date` (YYYY-MM-DD; the allowed window follows the FlightAPI docs) | Status, terminals, gates, scheduled/estimated/actual times. Cached for 2 min. |
-| `get_airport_schedule` | `airport_code` (IATA), `type` (departures\|arrivals), `limit?` | Upcoming flights. Cached for 2 min. |
-| `convert_currency` | `amount` (> 0), `from`, `to` (ISO 4217) | ECB reference rates via Frankfurter. Cached for 12 h. Keyless. |
-| `get_usage` | none | Calls made this session per provider, cache hits, remaining minute/day budget. |
+| `get_flight_status`    | `flight_number` (e.g. `EK623`, `PK 757`), `date` (YYYY-MM-DD; the allowed window follows the FlightAPI docs)                                                                                                                                                                                                       | Status, terminals, gates, scheduled/estimated/actual times. Cached for 2 min.                                                            |
+| `get_airport_schedule` | `airport_code` (IATA), `type` (departures\|arrivals), `limit?`                                                                                                                                                                                                                                                     | Upcoming flights. Cached for 2 min.                                                                                                      |
+| `convert_currency`     | `amount` (> 0), `from`, `to` (ISO 4217)                                                                                                                                                                                                                                                                            | ECB reference rates via Frankfurter. Cached for 12 h. Keyless.                                                                           |
+| `get_usage`            | none                                                                                                                                                                                                                                                                                                               | Calls made this session per provider, cache hits, remaining minute/day budget.                                                           |
 
 All inputs are strict zod schemas: no unknown keys, normalized to upper case, and no URLs or free-form endpoints anywhere.
 
@@ -81,7 +81,7 @@ All inputs are strict zod schemas: no unknown keys, normalized to upper case, an
 
 - API keys come only from env vars. They are redacted from every log line, error message and tool output (`redact.ts`), and they are never echoed in `get_usage`.
 - Only fixed provider base URLs are used. User input only fills validated path and query segments, which are `encodeURIComponent`-ed.
-- HTTP mode requires `MCP_HTTP_TOKEN` (refuses to start without it, unless `MCP_HTTP_ALLOW_NO_AUTH=true` is set *and* host is loopback). Tokens are compared in constant time. The default bind is `127.0.0.1`, with the SDK's DNS rebinding protection. The README documents running behind HTTPS (Caddy/nginx/Cloudflare Tunnel).
+- HTTP mode requires `MCP_HTTP_TOKEN` (refuses to start without it, unless `MCP_HTTP_ALLOW_NO_AUTH=true` is set _and_ host is loopback). Tokens are compared in constant time. The default bind is `127.0.0.1`, with the SDK's DNS rebinding protection. The README documents running behind HTTPS (Caddy/nginx/Cloudflare Tunnel).
 - Logs go to stderr only.
 
 ## Transports

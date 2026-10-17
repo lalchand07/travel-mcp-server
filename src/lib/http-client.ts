@@ -51,7 +51,12 @@ export async function fetchJson<T = unknown>(url: string, opts: FetchJsonOptions
 
     const text = await res.text();
     if (!res.ok) {
-      throw new HttpError(`Upstream returned HTTP ${res.status}`, res.status, 'http', redact(text.slice(0, 500)));
+      throw new HttpError(
+        `Upstream returned HTTP ${res.status}`,
+        res.status,
+        'http',
+        redact(text.slice(0, 500)),
+      );
     }
     try {
       return JSON.parse(text) as T;
