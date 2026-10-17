@@ -52,7 +52,7 @@ export function registerGetUsage(server: McpServer, ctx: AppContext): void {
         `Usage since ${data.since} (this server process):`,
         `FlightAPI key configured: ${data.flightApiKeyConfigured ? 'yes' : 'no'}`,
         `FlightAPI: ${data.flightapi.upstreamCalls} calls (~${estimatedCredits} credits), ${data.flightapi.cacheHits} served from cache, ${data.flightapi.errors} errors`,
-        `Exchange rates: ${data.currency.upstreamCalls} calls, ${data.currency.cacheHits} from cache`,
+        `Exchange rates: ${data.currency.upstreamCalls} call(s), ${data.currency.cacheHits} from cache`,
         `Safety limits: ${String(data.limits.remainingThisMinute)} of ${String(data.limits.perMinute)} left this minute, ${String(data.limits.remainingToday)} of ${String(data.limits.perDay)} left in the last 24h`,
         'Note: counters reset when the server restarts. Your FlightAPI dashboard shows your account-wide balance.',
       ].join('\n');

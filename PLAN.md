@@ -39,6 +39,7 @@ src/
     airlines.ts         Airline name lookup over the bundled OpenFlights dataset
     currency.ts         Frankfurter (ECB reference rates), cached for 12 h
     flightapi.ts        FlightAPI.io client (prices, tracking, airport schedules)
+  summarize/            Turns raw API JSON into compact, model-friendly text + structured data
   tools/                One file per MCP tool
   prompts/              plan_trip, umrah_flight_options
 data/
@@ -46,6 +47,7 @@ data/
   airlines.json         Generated compact dataset
 scripts/
   build-datasets.ts     Regenerates data/*.json from OurAirports + OpenFlights
+  record-fixtures.ts    Records live FlightAPI responses (key redacted) for fixtures
 test/
   fixtures/             Recorded API responses
   *.test.ts
@@ -66,7 +68,7 @@ All inputs are strict zod schemas: no unknown keys, normalized to upper case, an
 
 ## Prompts
 
-- `plan_trip(origin_city, destination_city, departure_date, return_date?, travellers?, budget_currency?)`: tells the model to resolve both cities with `search_airports`, call `search_flight_prices`, optionally `convert_currency`, then summarize the 3 best options with trade-offs.
+- `plan_trip(origin, destination, departure_date, return_date?, travellers?, currency?, preferences?)`: tells the model to resolve both cities with `search_airports`, call `search_flight_prices`, optionally `convert_currency`, then summarize the 3 best options with trade-offs.
 - `umrah_flight_options(origin_city, month, adults?, currency?)`: resolves the origin, searches JED and MED on several dates spread across the month, and compares them.
 
 ## Credit protection
@@ -81,7 +83,7 @@ All inputs are strict zod schemas: no unknown keys, normalized to upper case, an
 
 - API keys come only from env vars. They are redacted from every log line, error message and tool output (`redact.ts`), and they are never echoed in `get_usage`.
 - Only fixed provider base URLs are used. User input only fills validated path and query segments, which are `encodeURIComponent`-ed.
-- HTTP mode requires `MCP_HTTP_TOKEN` (refuses to start without it, unless `MCP_HTTP_ALLOW_NO_AUTH=true` is set _and_ host is loopback). Tokens are compared in constant time. The default bind is `127.0.0.1`, with the SDK's DNS rebinding protection. The README documents running behind HTTPS (Caddy/nginx/Cloudflare Tunnel).
+- HTTP mode requires `MCP_HTTP_TOKEN` (at least 16 characters; refuses to start without it). For clients that cannot send headers (ChatGPT connectors offer only OAuth or no auth), `MCP_HTTP_ALLOW_PATH_TOKEN=true` also accepts `POST /mcp/<token>`. Tokens are compared in constant time. The default bind is `127.0.0.1`, with the SDK's DNS rebinding protection. The README documents running behind HTTPS (Caddy/nginx/Cloudflare Tunnel).
 - Logs go to stderr only.
 
 ## Transports
@@ -92,7 +94,7 @@ All inputs are strict zod schemas: no unknown keys, normalized to upper case, an
 ## Testing
 
 - `fetch` is injected into providers, so tests pass a fake that serves recorded fixtures. No network or API key is needed.
-- One test file per tool, plus cache, rate limiter, http-client retry policy, validation, redaction, HTTP auth (supertest-style via a real ephemeral port) and an end-to-end MCP client test via `InMemoryTransport`.
+- One test file per tool, plus cache, rate limiter, http-client retry policy, validation, redaction, HTTP auth (real server on an ephemeral port) and an end-to-end MCP client test via `InMemoryTransport`.
 
 ## Packaging
 
@@ -102,4 +104,6 @@ All inputs are strict zod schemas: no unknown keys, normalized to upper case, an
 
 ## Status: FlightAPI endpoints
 
-The FlightAPI endpoint shapes must come from the official documentation (https://docs.flightapi.io/). While building, that documentation could not be reached from the development environment. `providers/flightapi.ts` is implemented only from verified documentation. See the summary or TODO for current status.
+Implemented from the official documentation at https://www.flightapi.io/documentation/ (the docs host was
+unreachable at first in the development environment; the work paused until access was granted, so nothing was
+guessed). The endpoint mapping and the gaps in the docs are recorded in [docs/FLIGHTAPI.md](docs/FLIGHTAPI.md).
