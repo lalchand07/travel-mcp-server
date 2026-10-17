@@ -1,0 +1,48 @@
+name: Bug report
+description: Something isn't working as expected
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for the report! Please never paste API keys or tokens.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you ask, which tool ran, and what did you get?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: dropdown
+    id: client
+    attributes:
+      label: MCP client
+      options: [Claude Desktop, Claude Code, Cursor, Gemini CLI, ChatGPT, MCP Inspector, Other]
+    validations:
+      required: true
+  - type: dropdown
+    id: transport
+    attributes:
+      label: Transport
+      options: [stdio, http]
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Output of `npx -y mcp-server-travel --version`
+  - type: input
+    id: node
+    attributes:
+      label: Node.js version
+      description: Output of `node --version`
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Server logs (stderr) with LOG_LEVEL=debug. Secrets are redacted automatically, but please double-check.
+      render: text

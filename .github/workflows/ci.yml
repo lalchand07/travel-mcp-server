@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - name: Smoke test the built CLI
+        run: node dist/index.js --version
+      - name: Check the npm package contents
+        run: npm pack --dry-run
+
+  docker:
+    name: Docker build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - run: docker build -t travel-mcp-server:ci .
+      - name: Start container and check health
+        run: |
+          docker run -d --name tms -p 3000:3000 -e MCP_HTTP_TOKEN=ci-token-0123456789abcdef travel-mcp-server:ci
+          for i in $(seq 1 20); do curl -fsS http://127.0.0.1:3000/healthz && exit 0; sleep 1; done
+          docker logs tms; exit 1
