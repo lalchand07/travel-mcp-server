@@ -1,0 +1,76 @@
+{
+  "name": "mcp-server-travel",
+  "version": "0.1.0",
+  "description": "MCP server for AI assistants: real flight prices, flight status, airport schedules, airport search and currency conversion. Bring your own FlightAPI key.",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "mcp-server",
+    "travel",
+    "flights",
+    "flight-prices",
+    "flight-status",
+    "airports",
+    "claude",
+    "cursor",
+    "chatgpt"
+  ],
+  "license": "MIT",
+  "author": "TODO: Your Name <you@example.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lalchand07/travel-mcp-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lalchand07/travel-mcp-server/issues"
+  },
+  "homepage": "https://github.com/lalchand07/travel-mcp-server#readme",
+  "type": "module",
+  "bin": {
+    "mcp-server-travel": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "data",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && node scripts/make-executable.mjs",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js",
+    "start:http": "node dist/index.js --http",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "data:build": "tsx scripts/build-datasets.ts",
+    "inspect": "npx -y @modelcontextprotocol/inspector node dist/index.js",
+    "prepublishOnly": "npm run lint && npm run typecheck && npm test && npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "express": "^5.3.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@types/express": "^5.0.6",
+    "@types/node": "^22.20.5",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.13.0",
+    "prettier": "^3.9.10",
+    "tsx": "^4.23.15",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.71.2",
+    "vitest": "^4.1.12"
+  }
+}
