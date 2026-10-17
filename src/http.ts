@@ -10,6 +10,7 @@ import { createMcpServer } from './server.js';
 import { VERSION } from './version.js';
 
 export const MIN_TOKEN_LENGTH = 16;
+const LOOPBACK_HOSTS = ['localhost', '127.0.0.1', '[::1]'];
 
 /** Constant-time comparison (hashing first makes lengths equal). */
 export function tokensMatch(provided: string, expected: string): boolean {
@@ -35,8 +36,10 @@ export function createHttpApp(ctx: AppContext): Express {
   }
   registerSecret(token);
 
-  // Host-header validation (DNS rebinding protection) is automatic for loopback hosts.
-  const app = createMcpExpressApp({ host, ...(allowedHosts?.length ? { allowedHosts } : {}) });
+  // Host-header validation (DNS rebinding protection) is automatic for loopback hosts. With an explicit
+  // allowlist, loopback names stay allowed so local health checks keep working (they cannot be rebound).
+  const hosts = allowedHosts?.length ? [...new Set([...allowedHosts, ...LOOPBACK_HOSTS])] : undefined;
+  const app = createMcpExpressApp({ host, ...(hosts ? { allowedHosts: hosts } : {}) });
   app.disable('x-powered-by');
 
   const requireBearer = (req: Request, res: Response, next: NextFunction) => {

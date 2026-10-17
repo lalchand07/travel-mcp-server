@@ -53,6 +53,32 @@ function post(url: string, headers: Record<string, string> = {}, body: unknown =
   });
 }
 
+/** POST initialize with a custom Host header (fetch() cannot override Host, so use node:http). */
+function statusWithHost(base: URL, host: string): Promise<number | undefined> {
+  return new Promise((resolve, reject) => {
+    const req = request(
+      {
+        host: base.hostname,
+        port: base.port,
+        path: '/mcp',
+        method: 'POST',
+        headers: {
+          host,
+          authorization: `Bearer ${TOKEN}`,
+          'content-type': 'application/json',
+          accept: 'application/json, text/event-stream',
+        },
+      },
+      (res) => {
+        res.resume();
+        resolve(res.statusCode);
+      },
+    );
+    req.on('error', reject);
+    req.end(JSON.stringify(initialize));
+  });
+}
+
 describe('HTTP transport auth', () => {
   it('refuses to start without a strong token', () => {
     const ctx = (token?: string) =>
@@ -140,30 +166,14 @@ describe('HTTP transport auth', () => {
 
   it('rejects requests with a foreign Host header (DNS rebinding protection)', async () => {
     const base = new URL(await start());
-    // fetch() cannot override Host, so use node:http directly.
-    const status = await new Promise<number | undefined>((resolve, reject) => {
-      const req = request(
-        {
-          host: base.hostname,
-          port: base.port,
-          path: '/mcp',
-          method: 'POST',
-          headers: {
-            host: 'evil.example',
-            authorization: `Bearer ${TOKEN}`,
-            'content-type': 'application/json',
-            accept: 'application/json, text/event-stream',
-          },
-        },
-        (res) => {
-          res.resume();
-          resolve(res.statusCode);
-        },
-      );
-      req.on('error', reject);
-      req.end(JSON.stringify(initialize));
-    });
-    expect(status).toBe(403);
+    expect(await statusWithHost(base, 'evil.example')).toBe(403);
+  });
+
+  it('accepts allowlisted public hostnames and still allows loopback health checks', async () => {
+    const base = new URL(await start({ MCP_HTTP_ALLOWED_HOSTS: 'travel.example.com' }));
+    expect(await statusWithHost(base, 'travel.example.com')).toBe(200);
+    expect(await statusWithHost(base, 'evil.example')).toBe(403);
+    expect((await fetch(`${base.origin}/healthz`)).status).toBe(200);
   });
 
   it('answers GET /mcp with 405 (stateless server)', async () => {
