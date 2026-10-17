@@ -1,0 +1,99 @@
+{
+  "itineraries": [
+    {
+      "id": "16216-2404021419--32385-1-12387-2404030005|12387-2404091500--32385-1-16216-2404091945",
+      "leg_ids": ["16216-2404021419--32385-1-12387-2404030005", "12387-2404091500--32385-1-16216-2404091945"],
+      "pricing_options": [
+        {
+          "id": "rt1",
+          "agent_ids": ["dela"],
+          "price": { "amount": 1390.4, "update_status": "current", "last_updated": "2024-01-09T09:40:39", "quote_age": 5 }
+        }
+      ],
+      "score": 3.4,
+      "cheapest_price": { "amount": 1390.4, "update_status": "current", "last_updated": "2024-01-09T09:40:39", "quote_age": 5 },
+      "pricing_options_count": 1
+    },
+    {
+      "id": "16216-2404021419--32385-1-12387-2404030005|12387-2404090955--32385-1-16216-2404091721",
+      "leg_ids": ["16216-2404021419--32385-1-12387-2404030005", "12387-2404090955--32385-1-16216-2404091721"],
+      "pricing_options": [
+        {
+          "id": "rt2",
+          "agent_ids": ["dela"],
+          "price": { "amount": 1250.4, "update_status": "current", "last_updated": "2024-01-09T09:40:39", "quote_age": 5 }
+        }
+      ],
+      "score": 3.31214,
+      "cheapest_price": { "amount": 1250.4, "update_status": "current", "last_updated": "2024-01-09T09:40:39", "quote_age": 5 },
+      "pricing_options_count": 1
+    }
+  ],
+  "legs": [
+    {
+      "id": "16216-2404021419--32385-1-12387-2404030005",
+      "origin_place_id": 16216,
+      "destination_place_id": 12387,
+      "departure": "2024-04-02T14:19:00",
+      "arrival": "2024-04-03T00:05:00",
+      "segment_ids": ["16216-9596-2404021419-2404022148--32385", "9596-12387-2404022225-2404030005--32385"],
+      "duration": 406,
+      "stop_count": 1,
+      "marketing_carrier_ids": [-32385],
+      "operating_carrier_ids": [-32385],
+      "stop_ids": [[9596]]
+    },
+    {
+      "id": "12387-2404091500--32385-1-16216-2404091945",
+      "origin_place_id": 12387,
+      "destination_place_id": 16216,
+      "departure": "2024-04-09T15:00:00",
+      "arrival": "2024-04-09T19:45:00",
+      "segment_ids": ["12387-9596-2404091500-2404091638--32385", "9596-16216-2404091720-2404091945--32385"],
+      "duration": 465,
+      "stop_count": 1,
+      "marketing_carrier_ids": [-32385],
+      "operating_carrier_ids": [-32385],
+      "stop_ids": [[9596]]
+    },
+    {
+      "id": "12387-2404090955--32385-1-16216-2404091721",
+      "origin_place_id": 12387,
+      "destination_place_id": 16216,
+      "departure": "2024-04-09T09:55:00",
+      "arrival": "2024-04-09T17:21:00",
+      "segment_ids": ["12387-9596-2404090955-2404091140--32385", "9596-16216-2404091455-2404091721--32385"],
+      "duration": 626,
+      "stop_count": 1,
+      "marketing_carrier_ids": [-32385],
+      "operating_carrier_ids": [-32385],
+      "stop_ids": [[9596]]
+    }
+  ],
+  "segments": [
+    {
+      "id": "16216-9596-2404021419-2404022148--32385",
+      "origin_place_id": 16216,
+      "destination_place_id": 9596,
+      "arrival": "2024-04-02T21:48:00",
+      "departure": "2024-04-02T14:19:00",
+      "duration": 269,
+      "marketing_flight_number": "437",
+      "marketing_carrier_id": -32385,
+      "operating_carrier_id": -32385,
+      "mode": "flight"
+    },
+    {
+      "id": "9596-12387-2404022225-2404030005--32385",
+      "origin_place_id": 9596,
+      "destination_place_id": 12387,
+      "arrival": "2024-04-03T00:05:00",
+      "departure": "2024-04-02T22:25:00",
+      "duration": 100,
+      "marketing_flight_number": "2178",
+      "marketing_carrier_id": -32385,
+      "operating_carrier_id": -32385,
+      "mode": "flight"
+    }
+  ]
+}

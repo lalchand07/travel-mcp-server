@@ -1,0 +1,36 @@
+[
+  {
+    "departure": {
+      "offGroundTime": "15:27, Jul 16",
+      "outGateTime": null,
+      "gate": null,
+      "departureDateTime": "2025-07-16T15:27:00+02:00",
+      "airport": "Barcelona",
+      "airportCity": "Barcelona",
+      "airportCode": "BCN",
+      "airportCountryCode": "ES",
+      "airportSlug": "BCN-Barcelona-Spain",
+      "scheduledTime": "14:55, Jul 16",
+      "estimatedTime": null,
+      "terminal": "1"
+    }
+  },
+  {
+    "arrival": {
+      "timeRemaining": "1 hr 12 min",
+      "onGroundTime": null,
+      "inGateTime": null,
+      "gate": null,
+      "baggage": null,
+      "arrivalDateTime": "2025-07-16T16:21:00+01:00",
+      "airport": "Heathrow",
+      "airportCity": "London",
+      "airportCode": "LHR",
+      "airportCountryCode": "GB",
+      "airportSlug": "LHR-London-UK-(Heathrow)",
+      "scheduledTime": "16:15, Jul 16",
+      "estimatedTime": "16:21, Jul 16",
+      "terminal": "5"
+    }
+  }
+]

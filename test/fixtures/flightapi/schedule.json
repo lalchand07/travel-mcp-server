@@ -1,0 +1,417 @@
+{
+  "airport": {
+    "pluginData": {
+      "details": {
+        "name": "Doha Hamad International Airport",
+        "code": {
+          "iata": "DOH",
+          "icao": "OTHH"
+        },
+        "delayIndex": {
+          "arrivals": null,
+          "departures": null
+        },
+        "stats": null,
+        "position": {
+          "latitude": 25.273056,
+          "longitude": 51.608055,
+          "elevation": 13,
+          "country": {
+            "name": "Qatar",
+            "code": "QA",
+            "id": 179
+          },
+          "region": {
+            "city": "Doha"
+          }
+        },
+        "timezone": {
+          "name": "Asia/Qatar",
+          "offset": 10800,
+          "abbr": "+03",
+          "abbrName": null,
+          "isDst": false
+        },
+        "url": {
+          "homepage": "http://www.dohaairport.com/",
+          "webcam": null,
+          "wikipedia": "https://en.wikipedia.org/wiki/Hamad_International_Airport"
+        },
+        "visible": true
+      },
+      "schedule": {
+        "departures": {
+          "item": {
+            "current": 3,
+            "total": 206,
+            "limit": 100
+          },
+          "page": {
+            "current": 1,
+            "total": 3
+          },
+          "timestamp": 1594550280,
+          "data": [
+            {
+              "flight": {
+                "identification": {
+                  "id": null,
+                  "row": 5019209141,
+                  "number": {
+                    "default": "QR8860",
+                    "alternative": null
+                  },
+                  "callsign": null,
+                  "codeshare": null
+                },
+                "status": {
+                  "live": false,
+                  "text": "Scheduled",
+                  "icon": null,
+                  "estimated": null,
+                  "ambiguous": false,
+                  "generic": {
+                    "status": {
+                      "text": "scheduled",
+                      "type": "departure",
+                      "color": "gray",
+                      "diverted": null
+                    },
+                    "eventTime": {
+                      "utc": null,
+                      "local": null
+                    }
+                  }
+                },
+                "aircraft": {
+                  "model": {
+                    "code": "77W",
+                    "text": ""
+                  },
+                  "hex": "",
+                  "registration": "",
+                  "serialNo": "",
+                  "images": null
+                },
+                "owner": null,
+                "airline": {
+                  "name": "Qatar Airways",
+                  "code": {
+                    "iata": "QR",
+                    "icao": "QTR"
+                  },
+                  "short": "Qatar Airways"
+                },
+                "airport": {
+                  "origin": {
+                    "timezone": {
+                      "name": "Asia/Qatar",
+                      "offset": 10800,
+                      "abbr": "+03",
+                      "abbrName": null,
+                      "isDst": false
+                    },
+                    "info": {
+                      "terminal": null,
+                      "baggage": null,
+                      "gate": "C12"
+                    }
+                  },
+                  "destination": {
+                    "code": {
+                      "iata": "LHR",
+                      "icao": null
+                    },
+                    "timezone": {
+                      "name": "Europe/Berlin",
+                      "offset": 7200,
+                      "abbr": "CEST",
+                      "abbrName": "Central European Summer Time",
+                      "isDst": true
+                    },
+                    "info": {
+                      "terminal": null,
+                      "baggage": null,
+                      "gate": null
+                    },
+                    "name": "London Heathrow Airport",
+                    "position": {
+                      "latitude": 50.0,
+                      "longitude": 8.5,
+                      "country": {
+                        "name": "Germany",
+                        "code": "DE",
+                        "id": 83
+                      },
+                      "region": {
+                        "city": "London"
+                      }
+                    },
+                    "visible": true
+                  },
+                  "real": null
+                },
+                "time": {
+                  "scheduled": {
+                    "departure": 1594557000,
+                    "arrival": 1594582000
+                  },
+                  "real": {
+                    "departure": null,
+                    "arrival": null
+                  },
+                  "estimated": {
+                    "departure": null,
+                    "arrival": null
+                  },
+                  "other": {
+                    "eta": null,
+                    "duration": null
+                  }
+                }
+              }
+            },
+            {
+              "flight": {
+                "identification": {
+                  "id": null,
+                  "row": 5019209141,
+                  "number": {
+                    "default": "QR8221",
+                    "alternative": null
+                  },
+                  "callsign": null,
+                  "codeshare": null
+                },
+                "status": {
+                  "live": false,
+                  "text": "Scheduled",
+                  "icon": null,
+                  "estimated": null,
+                  "ambiguous": false,
+                  "generic": {
+                    "status": {
+                      "text": "scheduled",
+                      "type": "departure",
+                      "color": "gray",
+                      "diverted": null
+                    },
+                    "eventTime": {
+                      "utc": null,
+                      "local": null
+                    }
+                  }
+                },
+                "aircraft": {
+                  "model": {
+                    "code": "77W",
+                    "text": ""
+                  },
+                  "hex": "",
+                  "registration": "",
+                  "serialNo": "",
+                  "images": null
+                },
+                "owner": null,
+                "airline": {
+                  "name": "Qatar Airways",
+                  "code": {
+                    "iata": "QR",
+                    "icao": "QTR"
+                  },
+                  "short": "Qatar Airways"
+                },
+                "airport": {
+                  "origin": {
+                    "timezone": {
+                      "name": "Asia/Qatar",
+                      "offset": 10800,
+                      "abbr": "+03",
+                      "abbrName": null,
+                      "isDst": false
+                    },
+                    "info": {
+                      "terminal": null,
+                      "baggage": null,
+                      "gate": null
+                    }
+                  },
+                  "destination": {
+                    "code": {
+                      "iata": "FRA",
+                      "icao": null
+                    },
+                    "timezone": {
+                      "name": "Europe/Berlin",
+                      "offset": 7200,
+                      "abbr": "CEST",
+                      "abbrName": "Central European Summer Time",
+                      "isDst": true
+                    },
+                    "info": {
+                      "terminal": null,
+                      "baggage": null,
+                      "gate": null
+                    },
+                    "name": "Frankfurt Airport",
+                    "position": {
+                      "latitude": 50.0,
+                      "longitude": 8.5,
+                      "country": {
+                        "name": "Germany",
+                        "code": "DE",
+                        "id": 83
+                      },
+                      "region": {
+                        "city": "Frankfurt"
+                      }
+                    },
+                    "visible": true
+                  },
+                  "real": null
+                },
+                "time": {
+                  "scheduled": {
+                    "departure": 1594550400,
+                    "arrival": 1594572900
+                  },
+                  "real": {
+                    "departure": null,
+                    "arrival": null
+                  },
+                  "estimated": {
+                    "departure": null,
+                    "arrival": null
+                  },
+                  "other": {
+                    "eta": null,
+                    "duration": null
+                  }
+                }
+              }
+            },
+            {
+              "flight": {
+                "identification": {
+                  "id": null,
+                  "row": 5019209141,
+                  "number": {
+                    "default": "QR1",
+                    "alternative": null
+                  },
+                  "callsign": null,
+                  "codeshare": null
+                },
+                "status": {
+                  "live": false,
+                  "text": "Departed",
+                  "icon": null,
+                  "estimated": null,
+                  "ambiguous": false,
+                  "generic": {
+                    "status": {
+                      "text": "departed",
+                      "type": "departure",
+                      "color": "gray",
+                      "diverted": null
+                    },
+                    "eventTime": {
+                      "utc": null,
+                      "local": null
+                    }
+                  }
+                },
+                "aircraft": {
+                  "model": {
+                    "code": "77W",
+                    "text": ""
+                  },
+                  "hex": "",
+                  "registration": "",
+                  "serialNo": "",
+                  "images": null
+                },
+                "owner": null,
+                "airline": {
+                  "name": "Qatar Airways",
+                  "code": {
+                    "iata": "QR",
+                    "icao": "QTR"
+                  },
+                  "short": "Qatar Airways"
+                },
+                "airport": {
+                  "origin": {
+                    "timezone": {
+                      "name": "Asia/Qatar",
+                      "offset": 10800,
+                      "abbr": "+03",
+                      "abbrName": null,
+                      "isDst": false
+                    },
+                    "info": {
+                      "terminal": null,
+                      "baggage": null,
+                      "gate": null
+                    }
+                  },
+                  "destination": {
+                    "code": {
+                      "iata": "CDG",
+                      "icao": null
+                    },
+                    "timezone": {
+                      "name": "Europe/Berlin",
+                      "offset": 7200,
+                      "abbr": "CEST",
+                      "abbrName": "Central European Summer Time",
+                      "isDst": true
+                    },
+                    "info": {
+                      "terminal": null,
+                      "baggage": null,
+                      "gate": null
+                    },
+                    "name": "Paris Charles de Gaulle Airport",
+                    "position": {
+                      "latitude": 50.0,
+                      "longitude": 8.5,
+                      "country": {
+                        "name": "Germany",
+                        "code": "DE",
+                        "id": 83
+                      },
+                      "region": {
+                        "city": "Paris"
+                      }
+                    },
+                    "visible": true
+                  },
+                  "real": null
+                },
+                "time": {
+                  "scheduled": {
+                    "departure": 1594540000,
+                    "arrival": 1594560000
+                  },
+                  "real": {
+                    "departure": 1594540300,
+                    "arrival": null
+                  },
+                  "estimated": {
+                    "departure": null,
+                    "arrival": null
+                  },
+                  "other": {
+                    "eta": null,
+                    "duration": null
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
