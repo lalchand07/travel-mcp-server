@@ -1,0 +1,181 @@
+{
+  "itineraries": [
+    {
+      "id": "12126-2405200600--32317-0-15130-2405200700",
+      "leg_ids": [
+        "12126-2405200600--32317-0-15130-2405200700"
+      ],
+      "pricing_options": [
+        {
+          "id": "EgiHJ3q9CXVr",
+          "agent_ids": [
+            "finn"
+          ],
+          "price": {
+            "amount": 52.1,
+            "update_status": "current",
+            "last_updated": "2024-01-09T09:11:11",
+            "quote_age": 224
+          },
+          "unpriced_type": "",
+          "items": [
+            {
+              "agent_id": "finn",
+              "url": "/transport_deeplink/4.0/US/en-GB/USD/finn/1/12126.15130.2024-05-20/air/airli/flights?itinerary=flight|-32317|431|12126|2024-05-20T06:00|15130|2024-05-20T07:00|60",
+              "segment_ids": [
+                "12126-15130-2405200600-2405200700--32317"
+              ],
+              "price": {
+                "amount": 52.1,
+                "update_status": "current",
+                "last_updated": "2024-01-09T09:11:11",
+                "quote_age": 224
+              },
+              "booking_proposition": "PBOOK"
+            }
+          ],
+          "transfer_type": "MANAGED",
+          "score": 10
+        }
+      ]
+    },
+    {
+      "id": "12126-2405201500--32317-0-15130-2405201600",
+      "leg_ids": [
+        "12126-2405201500--32317-0-15130-2405201600"
+      ],
+      "pricing_options": [
+        {
+          "id": "p2a",
+          "agent_ids": [
+            "finn"
+          ],
+          "price": {
+            "amount": 99.9
+          }
+        },
+        {
+          "id": "p2b",
+          "agent_ids": [
+            "mytr"
+          ],
+          "price": {
+            "amount": 87.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "unpriced",
+      "leg_ids": [
+        "12126-2405201500--32317-0-15130-2405201600"
+      ],
+      "pricing_options": [
+        {
+          "id": "p3",
+          "agent_ids": [
+            "finn"
+          ],
+          "price": {}
+        }
+      ]
+    }
+  ],
+  "legs": [
+    {
+      "id": "12126-2405200600--32317-0-15130-2405200700",
+      "origin_place_id": 12126,
+      "destination_place_id": 15130,
+      "departure": "2024-05-20T06:00:00",
+      "arrival": "2024-05-20T07:00:00",
+      "segment_ids": [
+        "12126-15130-2405200600-2405200700--32317"
+      ],
+      "duration": 60,
+      "stop_count": 0,
+      "marketing_carrier_ids": [
+        -32317
+      ],
+      "operating_carrier_ids": [
+        -32317
+      ],
+      "stop_ids": []
+    },
+    {
+      "id": "12126-2405201500--32317-0-15130-2405201600",
+      "origin_place_id": 12126,
+      "destination_place_id": 15130,
+      "departure": "2024-05-20T15:00:00",
+      "arrival": "2024-05-20T16:00:00",
+      "segment_ids": [
+        "12126-15130-2405201500-2405201600--32317"
+      ],
+      "duration": 60,
+      "stop_count": 0,
+      "marketing_carrier_ids": [
+        -32317
+      ],
+      "operating_carrier_ids": [
+        -32317
+      ],
+      "stop_ids": []
+    }
+  ],
+  "segments": [
+    {
+      "id": "12126-15130-2405200600-2405200700--32317",
+      "origin_place_id": 12126,
+      "destination_place_id": 15130,
+      "arrival": "2024-05-20T07:00:00",
+      "departure": "2024-05-20T06:00:00",
+      "duration": 60,
+      "marketing_flight_number": "431",
+      "marketing_carrier_id": -32317,
+      "operating_carrier_id": -32317,
+      "mode": "flight"
+    },
+    {
+      "id": "12126-15130-2405201500-2405201600--32317",
+      "origin_place_id": 12126,
+      "destination_place_id": 15130,
+      "arrival": "2024-05-20T16:00:00",
+      "departure": "2024-05-20T15:00:00",
+      "duration": 60,
+      "marketing_flight_number": "439",
+      "marketing_carrier_id": -32317,
+      "operating_carrier_id": -32317,
+      "mode": "flight"
+    }
+  ],
+  "places": [
+    {
+      "id": 12126,
+      "name": "Helsinki Vantaa",
+      "display_code": "HEL",
+      "type": "PlaceType_AIRPORT"
+    },
+    {
+      "id": 15130,
+      "name": "Oulu",
+      "display_code": "OUL",
+      "type": "PlaceType_AIRPORT"
+    }
+  ],
+  "carriers": [
+    {
+      "id": -32317,
+      "name": "Finnair",
+      "display_code": "AY"
+    }
+  ],
+  "agents": [
+    {
+      "id": "finn",
+      "name": "Finnair"
+    },
+    {
+      "id": "mytr",
+      "name": "Mytrip"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+name: Feature request
+description: Suggest a new tool, provider or improvement
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What would you like to ask your AI assistant?
+      description: A real example question helps a lot, e.g. "Which airlines fly non-stop from Lahore to Dubai?"
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: New tool, new parameter, new data provider (link its docs and pricing)...
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
